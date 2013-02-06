@@ -1,17 +1,14 @@
 package nc.isi.fragaria_reflection.services;
 
 import java.io.File;
-import java.util.Collection;
 import java.util.Set;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.regex.Pattern;
 
-
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
 import org.reflections.Reflections;
-import org.reflections.scanners.ResourcesScanner;
 
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
@@ -41,10 +38,8 @@ public class ResourceFinderImpl implements ResourceFinder {
 				}
 			});
 
-	public ResourceFinderImpl(ReflectionFactory reflectionFactory,
-			Collection<String> packageNames) {
-		reflections = reflectionFactory.create(packageNames,
-				new ResourcesScanner());
+	public ResourceFinderImpl(ReflectionProvider reflectionProvider) {
+		reflections = reflectionProvider.provide();
 	}
 
 	@Override

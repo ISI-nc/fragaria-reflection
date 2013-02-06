@@ -8,8 +8,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Type;
 
-import nc.isi.fragaria_reflection.exceptions.MultipleAnnotationDefinitionException;
-
+import org.apache.log4j.Logger;
 import org.springframework.beans.BeanUtils;
 
 import com.google.common.base.Throwables;
@@ -21,6 +20,9 @@ import com.google.common.base.Throwables;
  * 
  */
 public final class ReflectionUtils {
+	private static final Logger LOGGER = Logger
+			.getLogger(ReflectionUtils.class);
+
 	private ReflectionUtils() {
 
 	}
@@ -100,7 +102,9 @@ public final class ReflectionUtils {
 		if ((fieldAnnotation != null && readMethodAnnotation != null)
 				|| (fieldAnnotation != null && writeMethodAnnotation != null)
 				|| (readMethodAnnotation != null && writeMethodAnnotation != null)) {
-			throw new MultipleAnnotationDefinitionException();
+			LOGGER.debug(String
+					.format("getPropertyAnnotation : annotation %s found multiple time for property %s in class %s",
+							annotation, key, clazz));
 		}
 		return readMethodAnnotation != null ? readMethodAnnotation
 				: fieldAnnotation != null ? fieldAnnotation
