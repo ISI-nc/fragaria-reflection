@@ -56,9 +56,9 @@
 			<version>3.2.0.RELEASE</version>
 		</dependency>
 		<dependency>
-			<groupId>commons-io</groupId>
-			<artifactId>commons-io</artifactId>
-			<version>2.4</version>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>1.2.17</version>
 		</dependency>
 
 	</dependencies>
@@ -123,7 +123,7 @@
 	</repositories>
 
 	<properties>
-		<tapestry-release-version>5.4-alpha-2</tapestry-release-version>
+		<tapestry-release-version>5.4-alpha-4</tapestry-release-version>
 		<easymock-release-version>3.0</easymock-release-version>
 	</properties>
 </project>
