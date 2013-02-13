@@ -6,6 +6,7 @@ import java.beans.PropertyDescriptor;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 
 import org.apache.log4j.Logger;
@@ -177,6 +178,30 @@ public final class ReflectionUtils {
 		checkArgument(propertyDescriptor != null, "Pas de propriété %s for %s",
 				key, clazz);
 		return propertyDescriptor;
+	}
+
+	/**
+	 * retourne les classes des paramètres du type de retour de la méthode get
+	 * de la propriété
+	 * 
+	 * @param clazz
+	 * @param propertyName
+	 * @return
+	 */
+	public static Class<?>[] propertyParameterClasses(Class<?> clazz,
+			String propertyName) {
+		Type type = getPropertyDescriptor(clazz, propertyName).getReadMethod()
+				.getGenericReturnType();
+		if (!(type instanceof ParameterizedType)) {
+			ParameterizedType realType = ParameterizedType.class.cast(type);
+			int length = realType.getActualTypeArguments().length;
+			Class<?>[] classes = new Class[length];
+			for (int i = 0; i < length; i++) {
+				classes[i] = getClass(realType.getActualTypeArguments()[i]);
+			}
+			return classes;
+		}
+		return new Class[0];
 	}
 
 	/**
