@@ -1,6 +1,5 @@
 package nc.isi.fragaria_reflection.services;
 
-import java.io.File;
 import java.util.Set;
 
 public interface ResourceFinder {
@@ -10,5 +9,5 @@ public interface ResourceFinder {
 	 * 
 	 * @return
 	 */
-	Set<File> getResourcesMatching(String regExp);
+	Set<String> getResourcesMatching(String regExp);
 }

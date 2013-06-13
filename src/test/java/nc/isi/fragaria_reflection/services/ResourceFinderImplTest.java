@@ -1,6 +1,5 @@
 package nc.isi.fragaria_reflection.services;
 
-import java.io.File;
 import java.util.Set;
 
 import junit.framework.TestCase;
@@ -22,12 +21,11 @@ public class ResourceFinderImplTest extends TestCase {
 	public void testGetRessourcesMatching() {
 		ResourceFinder resourceFinder = new ResourceFinderImpl(
 				reflectionProvider);
-		Set<File> files = resourceFinder.getResourcesMatching(TEST_REGEXP);
+		Set<String> files = resourceFinder.getResourcesMatching(TEST_REGEXP);
 		assertNotNull("ne doit jamais retourner une liste null", files);
 		assertTrue("aucun fichier trouvé", files.size() > 0);
-		for (File file : files) {
-			assertTrue("erreur de matching", file.getName()
-					.matches(TEST_REGEXP));
+		for (String file : files) {
+			assertTrue("erreur de matching", file.matches(TEST_REGEXP));
 		}
 	}
 
