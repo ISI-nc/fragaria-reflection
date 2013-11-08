@@ -10,6 +10,8 @@ public class FragariaReflectionModule {
 		binder.bind(ScannerProvider.class, ScannerProviderImpl.class);
 		binder.bind(ReflectionProvider.class, ReflectionProviderImpl.class);
 		binder.bind(ResourceFinder.class, ResourceFinderImpl.class);
+		binder.bind(ObjectMetadataProvider.class,
+				ObjectMetadataProviderImpl.class);
 	}
 
 	public void contributeScannerProvider(Configuration<Scanner> scanners) {
