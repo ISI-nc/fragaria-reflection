@@ -72,6 +72,17 @@
 						</systemPropertyVariables>
 					</configuration>
 				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-jar-plugin</artifactId>
+					<configuration>
+						<archive>
+							<manifestEntries>
+								<Tapestry-Module-Classes>nc.isi.fragaria_reflection.services.FragariaReflectionModule</Tapestry-Module-Classes>
+							</manifestEntries>
+						</archive>
+					</configuration>
+				</plugin>
 			</plugins>
 		</pluginManagement>
 	</build>
@@ -102,6 +113,6 @@
 	</repositories>
 
 	<properties>
-		<tapestry-release-version>5.4-alpha-24</tapestry-release-version>
+		<tapestry-release-version>5.4-alpha-29</tapestry-release-version>
 	</properties>
 </project>

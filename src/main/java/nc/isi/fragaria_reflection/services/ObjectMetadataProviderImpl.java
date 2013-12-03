@@ -2,6 +2,7 @@ package nc.isi.fragaria_reflection.services;
 
 import java.util.concurrent.ExecutionException;
 
+import nc.isi.fragaria_reflection.utils.DefaultObjectMetadata;
 import nc.isi.fragaria_reflection.utils.ObjectMetadata;
 
 import com.google.common.base.Throwables;
@@ -11,12 +12,12 @@ import com.google.common.cache.LoadingCache;
 
 public class ObjectMetadataProviderImpl implements ObjectMetadataProvider {
 
-	private final LoadingCache<Class<?>, ObjectMetadata> cache = CacheBuilder
-			.newBuilder().build(new CacheLoader<Class<?>, ObjectMetadata>() {
+	private final LoadingCache<Class<?>, DefaultObjectMetadata> cache = CacheBuilder
+			.newBuilder().build(new CacheLoader<Class<?>, DefaultObjectMetadata>() {
 
 				@Override
-				public ObjectMetadata load(Class<?> key) {
-					return new ObjectMetadata(key);
+				public DefaultObjectMetadata load(Class<?> key) {
+					return new DefaultObjectMetadata(key);
 				}
 
 			});

@@ -23,8 +23,8 @@ import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 
-public class ObjectMetadata {
-	private static final Logger LOGGER = Logger.getLogger(ObjectMetadata.class);
+public class DefaultObjectMetadata implements ObjectMetadata {
+	private static final Logger LOGGER = Logger.getLogger(DefaultObjectMetadata.class);
 	private final Class<?> tClass;
 	private ImmutableSet<String> propertyNames;
 	private LoadingCache<String, PropertyDescriptor> cache = CacheBuilder
@@ -65,10 +65,11 @@ public class ObjectMetadata {
 
 			});
 
-	public ObjectMetadata(Class<?> tClass) {
+	public DefaultObjectMetadata(Class<?> tClass) {
 		this.tClass = tClass;
 	}
 
+	@Override
 	public ImmutableSet<String> propertyNames() {
 		if (propertyNames == null) {
 			Set<String> temp = Sets.newHashSet();
@@ -82,6 +83,7 @@ public class ObjectMetadata {
 		return propertyNames;
 	}
 
+	@Override
 	@SuppressWarnings("unchecked")
 	public <T extends Annotation> T getPropertyAnnotation(String propertyName,
 			Class<T> annotation) {
@@ -96,14 +98,17 @@ public class ObjectMetadata {
 		return (T) annotationCache.get(entry);
 	}
 
+	@Override
 	public Class<?> getTypeClass() {
 		return tClass;
 	}
 
+	@Override
 	public Class<?> propertyType(String propertyName) {
 		return getPropertyDescriptor(propertyName).getPropertyType();
 	}
 
+	@Override
 	public PropertyDescriptor getPropertyDescriptor(String propertyName) {
 		try {
 			return cache.get(propertyName);
@@ -120,6 +125,7 @@ public class ObjectMetadata {
 	 * @return
 	 * @return
 	 */
+	@Override
 	public Class<?>[] propertyParameterClasses(String propertyName) {
 		try {
 			return parameterClassesCache.get(propertyName);
@@ -128,6 +134,7 @@ public class ObjectMetadata {
 		}
 	}
 
+	@Override
 	public Object read(Object object, String propertyName) {
 		LOGGER.debug(String.format("read %s in %s", propertyName, object));
 		try {
@@ -140,10 +147,12 @@ public class ObjectMetadata {
 
 	}
 
+	@Override
 	public Boolean canWrite(String propertyName) {
 		return getPropertyDescriptor(propertyName).getWriteMethod() != null;
 	}
 
+	@Override
 	public void write(Object object, String propertyName, Object value) {
 		try {
 			checkNotNull(getPropertyDescriptor(propertyName).getWriteMethod())
